@@ -65,5 +65,37 @@ public_users.get('/review/:isbn', async (req, res) => {
     return res.status(200).json(book.reviews);
 });
 
+
+const axios = require('axios');
+
+const getAllBooks = async () => {
+    const response = await axios.get('http://localhost:5000/');
+    return response.data;
+};
+
+const getBookByISBN = async (isbn) => {
+    const response = await axios.get(`http://localhost:5000/isbn/${isbn}`);
+    return response.data;
+};
+
+const getBooksByAuthor = async (author) => {
+    const response = await axios.get(
+        `http://localhost:5000/author/${encodeURIComponent(author)}`
+    );
+    return response.data;
+};
+
+const getBooksByTitle = async (title) => {
+    const response = await axios.get(
+        `http://localhost:5000/title/${encodeURIComponent(title)}`
+    );
+    return response.data;
+};
+
+module.exports.getAllBooks = getAllBooks;
+module.exports.getBookByISBN = getBookByISBN;
+module.exports.getBooksByAuthor = getBooksByAuthor;
+module.exports.getBooksByTitle = getBooksByTitle;
+
 module.exports.general = public_users;
 
